@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
+use App\Models\Appointments;
 use Illuminate\Http\Request;
 
 class AppointmentsController extends Controller
 {
     public function index()
     {
-        return response()->json(Appointment::with(['patients', 'medic'])->get(), 200);
+        return response()->json(Appointments::with(['patients', 'medic'])->get(), 200);
     }
 
     public function store(Request $request)
@@ -26,7 +25,7 @@ class AppointmentsController extends Controller
                 'room' => 'nullable|string|max:50',
             ]);
     
-            $appointment = Appointment::create($data);
+            $appointment = Appointments::create($data);
             return response()->json($appointment, 201);
         } catch (\Throwable $th) {
             dd($th->getMessage());
@@ -37,13 +36,13 @@ class AppointmentsController extends Controller
 
     public function show($id)
     {
-        $appointment = Appointment::with(['patient', 'medic'])->findOrFail($id);
+        $appointment = Appointments::with(['patient', 'medic'])->findOrFail($id);
         return response()->json($appointment, 200);
     }
 
     public function update(Request $request, $id)
     {
-        $appointment = Appointment::findOrFail($id);
+        $appointment = Appointments::findOrFail($id);
 
         $data = $request->validate([
             'date' => 'sometimes|date',
@@ -61,7 +60,7 @@ class AppointmentsController extends Controller
 
     public function destroy($id)
     {
-        $appointment = Appointment::findOrFail($id);
+        $appointment = Appointments::findOrFail($id);
         $appointment->delete();
         return response()->json(null, 204);
     }

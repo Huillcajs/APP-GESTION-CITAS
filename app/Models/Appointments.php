@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
+class Appointments extends Model
 {
     use HasFactory;
 
@@ -19,7 +19,7 @@ class Appointment extends Model
         'room',
     ];
 
-    public function patient()
+    public function patients()
     {
         return $this->belongsTo(Patients::class, 'patient_id');
     }
