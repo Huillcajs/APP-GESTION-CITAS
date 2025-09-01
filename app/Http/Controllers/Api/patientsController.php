@@ -39,7 +39,7 @@ class PatientsController extends Controller
     public function update(Request $request, $id)
     {
         $patient = Patients::findOrFail($id);
-
+    
         $data = $request->validate([
             'first_name' => 'sometimes|string|max:255',
             'last_name' => 'sometimes|string|max:255',
@@ -49,11 +49,12 @@ class PatientsController extends Controller
             'address' => 'sometimes|string|max:255',
             'blood_type' => 'sometimes|string|max:10',
         ]);
-
+    
         $patient->update($data);
+    
         return response()->json($patient, 200);
     }
-
+    
     public function destroy($id)
     {
         $patient = Patients::findOrFail($id);
